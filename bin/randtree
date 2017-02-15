@@ -1,0 +1,85 @@
+#!/usr/bin/env python
+import os
+import sys
+import random
+
+scriptdir = sys.path[0]
+
+if os.path.basename(scriptdir).startswith('bin'):
+	sys.path.append( os.path.dirname(scriptdir) )
+else:
+	pass
+
+from satelib.alignment import Alignment, SequenceDataset
+
+argc = len(sys.argv)
+if argc > 3:
+    seqfn, datatype, outp = sys.argv[1:4]
+    datatype = datatype.upper()
+    seed = None
+    ultrametric = False
+    if argc > 4:
+        for arg in sys.argv[4:6]:
+            if arg.upper() == 'U':
+                ultrametric = True
+            else:
+                seed = long(arg)
+    if seed is None:
+        import time
+        seed = long(time.time() * 100000) & 0xFFFFFF
+
+    random.seed(seed)
+    # sys.stderr.write("rand_tree.py seed = %d\n" % seed)
+else:
+    sys.exit("Expecting <input1> <datatype> <output> [seed [U] ]")
+
+
+sd = SequenceDataset()
+try:
+    fileobj = open(seqfn, 'rU')
+    sd.read(fileobj, file_format='FASTA', datatype=datatype)
+    alignment = sd.relabel_for_sate(make_names_safe=False)
+except Exception, x:
+    raise Exception("Error reading file:\n%s\n" % str(x))
+
+taxa_names = alignment.keys()
+random.shuffle(taxa_names)
+
+def rand_subtree(output, leaves, height=None):
+    n_leaves = len(leaves)
+    if n_leaves == 1:
+        content = leaves[0]
+        output.write(content)
+        if ultrametric:
+            brlen = height
+            assert height is not None
+        else:
+            brlen = random.random()
+    else:
+        cut_index = random.randrange(1, n_leaves)
+        if ultrametric:
+            assert height is not None
+            brlen = random.random()*height
+            daughter_h = height - brlen
+        else:
+            brlen = random.random()
+            daughter_h = height
+        left_clade = leaves[:cut_index]
+        output.write('(')
+        rand_subtree(output, left_clade, daughter_h)
+        output.write(',')
+        right_clade = leaves[cut_index:]
+        rand_subtree(output, right_clade, daughter_h)
+        output.write(')')
+    output.write(":%f" % brlen)
+    return height
+o = open(outp, 'w')
+if ultrametric:
+    height = 2.0
+else:
+    height = None
+rand_subtree(o, taxa_names, height=height)
+o.write(";\n")
+o.close()
+print(-random.random())
+

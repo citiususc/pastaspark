@@ -1,0 +1,62 @@
+import os, sys
+
+scriptdir = sys.path[0]
+
+if os.path.basename(scriptdir).startswith('bin'):
+	sys.path.append( os.path.dirname(scriptdir) )
+else:
+	pass
+
+from satelib.alignment import Alignment, SequenceDataset
+
+argc = len(sys.argv)
+if argc == 4:
+	datatype, seqfn, outp = sys.argv[1:]
+	second_inp = None
+elif argc == 5:
+	datatype, seqfn, second_inp, outp = sys.argv[1:]
+else:
+	sys.exit("Expecting DNA|PROTEIN <input1> [input2] <output>")
+
+datatype = datatype.upper()
+if datatype not in ["DNA", "PROTEIN"]:
+	raise Exception("Expecting the datatype to by DNA or PROTEIN\n")
+
+sd = SequenceDataset()
+try:
+	fileobj = open(seqfn, 'rU')
+	sd.read(fileobj, file_format='FASTA', datatype=datatype)
+	alignment = sd.relabel_for_sate(make_names_safe=False)
+except Exception, x:
+	raise Exception("Error reading file:\n%s\n" % str(x))
+
+if second_inp:
+	sd = SequenceDataset()
+	try:
+		fileobj = open(second_inp, 'rU')
+		sd.read(fileobj, file_format='FASTA', datatype=datatype)
+		alignment2 = sd.relabel_for_sate(make_names_safe=False)
+	except Exception, x:
+		raise Exception("Error reading file:\n%s\n" % str(x))
+else:
+	alignment2  = {}
+
+for k in alignment2.keys():
+	if k in alignment:
+		sys.exit("Taxon %s was found in both alignments" % k)
+alignment.update(alignment2)
+max_len = 0
+x = []
+for k, v in alignment.iteritems():
+	gapless_v = ''.join(v.split('-'))
+	max_len = max(max_len, len(gapless_v))
+	x.append((k, gapless_v))
+
+o = open(outp, 'w')
+for el in x:
+	k, v = el
+	num_gaps = int(max_len - len(v))
+	gaps = '-'*num_gaps
+	o.write('>%s\n%s%s\n' % (k, v, gaps))
+o.close()	
+	

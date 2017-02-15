@@ -1,0 +1,135 @@
+Release 2.2.7
+=============
+    - [BUG FIX] More intuitive behavior for the maximum subproblem option from
+                the GUI. There are two controls for the maximum subproblem
+                used during tree decomposition, frac and size. Both of these
+                have default values, and the larger of the two is used to
+                determine the maximum subset size during decomposition. This
+                caused confusion when using the GUI, because the selected
+                option was ignored if it was smaller than the default for
+                the alternative option. The GUI now explicitly configures
+                BOTH options as per the user's radio-button selection, so
+                that what the user sees is what they get. In short, always
+                check the configuration file reported by SATe! This will
+                tell you exactly what SATe is doing.
+
+Release 2.2.6
+=============
+    - [CHANGES] RNA sequence data is now fully supported. There was some
+                inconsistency in previous versions as to whether RNA data was
+                allowed to run (under some versions and configurations it was
+                allowed to run as DNA data). This version internally converts
+                RNA input to DNA and then converts the final results back to
+                RNA.
+    - [CHANGES] Updated the alignment length check that determines which
+                MAFFT algorithm to use for alignment. Previously this checked
+                the alignment length, it now uses the maximum unaligned
+                sequence length.
+    - [CHANGES] Better error messaging when input sequence labels conflict
+                with tip labels of a user-provided starting tree. The error
+                message now reports the problem and lists all of the mismatched
+                labels.
+    - [CHANGES] This version gives explicit warning messages when the user
+                specifies a max subproblem argument that is equal to or greater
+                than the number of tips. Under these conditions, the SATe
+                algorithm is not invoked. The warning makes this more clear to
+                the user.
+    - [CHANGES] Many tests added to the test suite.
+
+Release 2.2.5
+=============
+    - [BUG FIX] Fixed directory cleanup error messages introduced with release
+                2.2.4. SATe can now remove temporary directories without these
+                annoying error messages. This bug did not affect analyses.
+    - [BUG FIX] Fixed tree-decomposition recursion bug introduced with release
+                2.2.4. During some recursions, multiple sate aligner jobs would
+                attempt to create the same temp directory, causing the analysis
+                to exit with an error. This release corrects this problem. Any
+                results obtained from 2.2.4 should not be effected by the bug,
+                because this bug always resulted in a crash.
+
+Release 2.2.4
+=============
+    - [BUG FIX] Fixed temp directory path depth problem in Windows when using
+                "longest" decomposition. Previous versions created a nested
+                temp file directory that mirrored the tree decomposition. In
+                Windows, if the tree had enough long terminal branches, the
+                temp files got too long for the OS. The temp file structure
+                has been changed to avoid this problem.
+    - [BUG FIX] Fixed problem with too many open files when multi-locus
+                analyses had many loci.
+
+Release 2.2.3
+=============
+    - [CHANGES] MUSCLE is now the default merger tool.
+    - [CHANGES] Centroid is now the default decomposition strategy.
+    - [CHANGES] More sample data and output files bundled.
+
+Release 2.2.2
+=============
+    - [BUG FIX] Previous version had used the "Centroid" decomposition even when
+                the user specified "Longest."
+    - [BUG FIX] Multiple issues dealing the handling very small subsets of taxa.
+                These arise frequently in the "longest" edge decomposition, but
+                are rare when using centroid decomposition.
+    - [BUG FIX] Input sequences with all gaps no longer create problems (this
+                can reasonably occur in multi-locus runs).
+    - [CHANGES] FastTree binary in Mac bundle is compiled for more
+                architectures.
+    - [CHANGES] Updated documentation.
+    - [CHANGES] RAxML user-specified arguments implemented in CLI.
+    - [CHANGES] Post-processing RAxML search now uses
+                start_tree_search_from_current boolean to determine whether to
+                use the tree resulting from the SATe algorithm as starting tree.
+    - [CHANGES] Updated bundled data.
+    
+Release 2.2.1
+=============
+
+    - [BUG FIX] Minor fix to initial GUI display. Initial "Model" options now
+                correspond to FastTree options.
+    - [CHANGES] updated documentation in README and FAQ.
+
+Release 2.2.0
+=============
+
+    - [BUG FIX] No longer uses 'N' for missing taxa in multi-locus mode, which
+                caused problems with multi-locus amino acid analyses with
+                missing taxa.
+    - [CHANGES] Fasttree is now bundled with SATe.
+    - [CHANGES] New option to automatically set defaults based on size of
+                dataset.
+    - [CHANGES] Several default settings changed.
+
+Release 2.1.0
+=============
+
+    - [BUG FIX] No longer write out duplicate sequence entries in final
+                alignment output.
+    - [CHANGES] Do not clean up files and directories in temporary working
+                directory not created by SATe.
+    - [BUG FIX] Check for gamma score in output file before using value in log
+                file.
+
+Release 2.0.3
+=============
+
+    - Fix for not terminating correctly in SATE-II-fast mode.
+    - Allow specification of memory to be allocated to JVM when running Opal
+      [NOTE: default memory allocation is now 1024MB instead of 2048MB].
+    - Default to SATE-II-fast mode instead of SATE-II-ML.
+    - SATE-II-ML defaults to 10 iterations instead of 100.
+
+Release 2.0.2b
+==============
+
+    - Fix for multilocus analysis with non-equal leaf-sets.
+    - Fix for allowing SATe application bundle to be run from directories with
+      non-alphanumeric characters in path.
+
+Release 2.0.1b
+==============
+
+    - Support for multilocus analysis.
+    - `pairalign` (MAFFT) is not run if sequences are > 10K characters. This
+      configuration has not been benchmarked.

@@ -1,0 +1,5 @@
+*.pyc
+SATe.egg-info/
+PASTA.egg-info/
+build/
+
