@@ -1,3 +1,66 @@
+What is PastaSpark about?
+===
+PastaSpark is a parallel distributed memory implementation of PASTA by using Apache Spark as engine.
+
+The PASTA (Practical Alignment using Sate and TrAnsitivity) algorithm is published at [RECOMB-2014](http://link.springer.com/chapter/10.1007%2F978-3-319-05269-4_15#):
+Mirarab, S., Nguyen, N., & Warnow, T. (2014). PASTA: Ultra-Large Multiple Sequence Alignment. In R. Sharan (Ed.), Research in Computational Molecular Biology (RECOMB) (pp. 177–191).
+
+and also at [JCB](http://online.liebertpub.com/doi/abs/10.1089/cmb.2014.0156):
+
+Mirarab, S., Nguyen, N. Guo, S., Wang, L., Kim, J. and Warnow, T.. PASTA: Ultra-Large Multiple Sequence Alignment for Nucleotide and Amino-Acid Sequences. Journal of Computational Biology (2014)
+
+If you want to read original PASTA README file, click [here]((#original)).
+
+
+INSTALLATION
+===
+**Dependencies**: 
+
+1. You need to have python 2.7 or later.
+2. You need to have java installed (required for Opal, which is by the default used in PASTA for merging small alignments).
+3. You need to have a cluster with Hadoop/YARN and Spark installed and running. We have tested PastaSpark with Hadoop 2.7.1 and Spark 1.6.1.
+4. In this cluster, you need to have a shared folder among your computing nodes to store the results.
+
+PastaSpark only works in Linux machines. To install it, you have to run the following command:
+```
+python setup.py develop --user
+```
+
+Working modes
+===
+PastaSpark can works as the original PASTA or in a YARN/Spark cluster. If you launch PastaSpark as in the original version, the execution and results are going to be the same.
+On the other hand, if you launch PastaSpark within a Spark context, it will be executed in your Spark cluster. You can find more information about this in the next section, Execution examples.
+
+Execution examples
+===
+An example of how to launch PastaSpark with the data in the `data` directory could be, in a bash script:
+```
+#!/bin/bash
+
+SPARK_COMMAND="spark-submit --master yarn --deploy-mode cluster"
+DRIVER_MEM="25G"
+EXEC_MEM="5G"
+
+CURRENT_DIR=`pwd`
+HOME="/home/jmabuin"
+
+NUM_EXECUTORS="8"
+DRIVER_CORES="4"
+EXECUTOR_CORES="1"
+ARCHIVES="pasta.zip"
+PY_FILES="pasta.zip,$HOME/.local/lib/python2.7/site-packages/DendroPy-3.12.3-py2.7.egg"
+
+INPUT_DATA="$CURRENT_DIR/data/small.fasta"
+INPUT_TREE="$CURRENT_DIR/data/small.tree"
+
+$SPARK_COMMAND --name PastaSpark_Small_8Exec --driver-memory $DRIVER_MEM --executor-memory $EXEC_MEM --num-executors $NUM_EXECUTORS --driver-cores $DRIVER_CORES --executor-cores $EXECUTOR_CORES --archives $ARCHIVES --py-files $PY_FILES run_pasta.py --temporaries=./ -i $INPUT_DATA -t $INPUT_TREE --num-cpus=$DRIVER_CORES --num-cpus-spark=$EXECUTOR_CORES --num-partitions=$NUM_EXECUTORS
+
+```
+
+
+Original PASTA
+===
+####<a name="original"></a>
 This is an implementation of the PASTA (Practical Alignment using Sate and TrAnsitivity) algorithm published at [RECOMB-2014](http://link.springer.com/chapter/10.1007%2F978-3-319-05269-4_15#):
 
 Mirarab, S., Nguyen, N., & Warnow, T. (2014). PASTA: Ultra-Large Multiple Sequence Alignment. In R. Sharan (Ed.), Research in Computational Molecular Biology (RECOMB) (pp. 177–191).
