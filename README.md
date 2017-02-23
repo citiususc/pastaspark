@@ -1,16 +1,6 @@
 What is PastaSpark about?
 ===
-PastaSpark is a parallel distributed memory implementation of PASTA by using Apache Spark as engine.
-
-The PASTA (Practical Alignment using Sate and TrAnsitivity) algorithm is published at [RECOMB-2014](http://link.springer.com/chapter/10.1007%2F978-3-319-05269-4_15#):
-Mirarab, S., Nguyen, N., & Warnow, T. (2014). PASTA: Ultra-Large Multiple Sequence Alignment. In R. Sharan (Ed.), Research in Computational Molecular Biology (RECOMB) (pp. 177–191).
-
-and also at [JCB](http://online.liebertpub.com/doi/abs/10.1089/cmb.2014.0156):
-
-Mirarab, S., Nguyen, N. Guo, S., Wang, L., Kim, J. and Warnow, T.. PASTA: Ultra-Large Multiple Sequence Alignment for Nucleotide and Amino-Acid Sequences. Journal of Computational Biology (2014)
-
-If you want to read original PASTA README file, click [here]((#original)).
-
+PASTASpark is a parallel distributed memory implementation of PASTA by using Apache Spark as engine.
 
 INSTALLATION
 ===
@@ -18,22 +8,21 @@ INSTALLATION
 
 1. You need to have python 2.7 or later.
 2. You need to have java installed (required for Opal, which is by the default used in PASTA for merging small alignments).
-3. You need to have a cluster with Hadoop/YARN and Spark installed and running. We have tested PastaSpark with Hadoop 2.7.1 and Spark 1.6.1.
-4. In this cluster, you need to have a shared folder among your computing nodes to store the results.
+3. You need to have a cluster with Hadoop/YARN and Spark installed and running. We have tested PASTASpark with Hadoop 2.7.1 and Spark 1.6.1.
+4. PASTASpark requires a shared folder among the computing nodes to store the results in the cluster.
 
-PastaSpark only works in Linux machines. To install it, you have to run the following command:
+PASTASpark only works in Linux machines. To install it, you have to run the following command:
 ```
 python setup.py develop --user
 ```
 
 Working modes
 ===
-PastaSpark can works as the original PASTA or in a YARN/Spark cluster. If you launch PastaSpark as in the original version, the execution and results are going to be the same.
-On the other hand, if you launch PastaSpark within a Spark context, it will be executed in your Spark cluster. You can find more information about this in the next section, Execution examples.
+PASTASpark can be executed as the original PASTA or on a YARN/Spark cluster. In this way, if you launch PASTASpark within a Spark context, it will be executed on your Spark cluster. You can find more information about this topic in the next section.
 
 Execution examples
 ===
-An example of how to launch PastaSpark with the data in the `data` directory could be, in a bash script:
+The following is an example of how to launch PASTASpark using a bash script and taking as input the files stored in the `data` directory:
 ```
 #!/bin/bash
 
