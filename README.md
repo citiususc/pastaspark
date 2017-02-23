@@ -1,4 +1,4 @@
-What is PastaSpark about?
+What is PASTASpark about?
 ===
 PASTASpark is a parallel distributed memory implementation of PASTA by using Apache Spark as engine.
 
