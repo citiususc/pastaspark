@@ -1,17 +1,17 @@
 What is PASTASpark about?
 ===
-PASTASpark is a parallel distributed memory implementation of PASTA by using Apache Spark as engine.
+PASTASpark is a tool that uses the Big Data engine Apache Spark to boost the performance of the alignment phase of PASTA (Practical Alignments using SATé and TrAnsitivity). PASTASpark reduces noticeably the execution time of PASTA, running the most costly part of the original code as a distributed Spark application. In this way, PASTASpark guarantees scalability and fault tolerance, and allows to obtain MSAs from very large datasets in reasonable time. 
 
 INSTALLATION
 ===
 **Dependencies**: 
 
-1. You need to have python 2.7 or later.
-2. You need to have java installed (required for Opal, which is by the default used in PASTA for merging small alignments).
+1. You need to have Python 2.7 or later.
+2. You need to have Java installed (required for Opal, which is by the default used in PASTA for merging small alignments).
 3. You need to have a cluster with Hadoop/YARN and Spark installed and running. We have tested PASTASpark with Hadoop 2.7.1 and Spark 1.6.1.
 4. PASTASpark requires a shared folder among the computing nodes to store the results in the cluster.
 
-PASTASpark only works in Linux machines. To install it, you have to follow these steps:
+PASTASpark only works on Linux machines. To install it, you have to follow these steps:
 1. Clone the repository:
 ```
 git clone https://github.com/citiususc/pastaspark.git
