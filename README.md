@@ -4,15 +4,14 @@ What is PASTASpark about?
 
 If you use **PASTASPark**, please, cite this article:
 
-<span style="background-color:#00FFFF">
-José M. Abuin, Tomás F. Pena and Juan C. Pichel. ["PASTASpark: multiple sequence alignment meets Big Data"][4]. *Bioinformatics*, 2017.
-</span>
+> José M. Abuin, Tomás F. Pena and Juan C. Pichel. ["PASTASpark: multiple sequence alignment meets Big Data"][4]. *Bioinformatics*, 2017.
+
 
 **PASTASpark** was originally a fork from [PASTA][1] (Forked in November 2016) [here][2] and [here][3]. Later, it became a project itself in this repository. The original PASTA paper can be found with this references:
 
-<span style="background-color:#00FFFF">Mirarab, S., Nguyen, N., and Warnow, T. (2014). ["PASTA: Ultra-Large Multiple Sequence Alignment"][5]. In R. Sharan (Ed.), *Research in Computational Molecular Biology*, (pp. 177–191).</span>
+> Mirarab, S., Nguyen, N., and Warnow, T. (2014). ["PASTA: Ultra-Large Multiple Sequence Alignment"][5]. In R. Sharan (Ed.), *Research in Computational Molecular Biology*, (pp. 177–191).
 
-<span style="background-color:#00FFFF">Mirarab, S., Nguyen, N. Guo, S., Wang, L., Kim, J. and Warnow, T. ["PASTA: Ultra-Large Multiple Sequence Alignment for Nucleotide and Amino-Acid Sequences"][6]. *Journal of Computational Biology*, (2014)</span>
+> Mirarab, S., Nguyen, N. Guo, S., Wang, L., Kim, J. and Warnow, T. ["PASTA: Ultra-Large Multiple Sequence Alignment for Nucleotide and Amino-Acid Sequences"][6]. *Journal of Computational Biology*, (2014).
 
 INSTALLATION
 ===
