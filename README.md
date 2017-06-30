@@ -1,5 +1,5 @@
-What is PASTASpark about?
-===
+# What is PASTASpark about?
+
 **PASTASpark** is a tool that uses the Big Data engine Apache Spark to boost the performance of the alignment phase of [PASTA][1] (Practical Alignments using SATé and TrAnsitivity). PASTASpark reduces noticeably the execution time of PASTA, running the most costly part of the original code as a distributed Spark application. In this way, PASTASpark guarantees scalability and fault tolerance, and allows to obtain MSAs from very large datasets in reasonable time. 
 
 If you use **PASTASPark**, please, cite this article:
@@ -13,37 +13,41 @@ If you use **PASTASPark**, please, cite this article:
 
 > Mirarab, S., Nguyen, N. Guo, S., Wang, L., Kim, J. and Warnow, T. ["PASTA: Ultra-Large Multiple Sequence Alignment for Nucleotide and Amino-Acid Sequences"][6]. *Journal of Computational Biology*, (2014).
 
-INSTALLATION
-===
-**PASTASpark** only works on Linux machines. To install it, you need to have Python and git installed, then follow these steps:
+## Installation
+
+**PASTASpark** only works on Linux systems.
+
+### Compilation from sources
+
+You need Python 2.7 and git installed.
 
 1. Clone the repository:
-
 ```
 git clone https://github.com/citiususc/pastaspark.git
 ```
 
 2. Enter the created directory and run the install command:
-
 ```
 cd pastaspark
 python setup.py develop --user
 ```
 
-**Dependencies**: 
+## Running PASTASpark
+
+### Running Dependencies
 
 1. Python 2.7 or later.
-2. Java installed (required for Opal, which is by the default used in PASTA for merging small alignments).
-3. You need to have a cluster with Hadoop/YARN and Spark installed and running. We have tested **PASTASpark** with Hadoop 2.7.1 and Spark 1.6.1.
-4. Also, **PASTASpark** requires a shared folder among the computing nodes to store the results in the cluster.
+2. Java 8 (required for Opal, which is by the default used in PASTA for merging small alignments).
+3. A cluster with Hadoop/YARN and Spark installed and running. Tested with Hadoop 2.7.1 and Spark 1.6.1.
+4. A shared folder among the computing nodes to store the results in the cluster.
 
 
-Working modes
-===
+### Working modes
+
 **PASTASpark** can be executed as the original PASTA or on a YARN/Spark cluster. In this way, if you launch **PASTASpark** within a Spark context, it will be executed on your Spark cluster. You can find more information about this topic in the next section.
 
-Execution examples
-===
+### Examples
+
 A basic example of how to execute **PASTASpark** in your local machine with a working Spark setup is:
 
 ```
