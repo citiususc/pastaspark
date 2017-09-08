@@ -4,7 +4,7 @@
 
 If you use **PASTASPark**, please, cite this article:
 
-> José M. Abuin, Tomás F. Pena and Juan C. Pichel. ["PASTASpark: multiple sequence alignment meets Big Data"][4]. *Bioinformatics*, 2017.
+> José M. Abuin, Tomás F. Pena and Juan C. Pichel. ["PASTASpark: multiple sequence alignment meets Big Data"][4]. *Bioinformatics*, Vol. 33, Issue 18, pages 2948-2950, 2017.
 
 
 **PASTASpark** was originally a fork from [PASTA][1] (Forked in November 2016) [here][2] and [here][3]. Later, it became a project itself in this repository. The original PASTA paper can be found with this references:
